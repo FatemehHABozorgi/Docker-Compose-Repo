@@ -1,0 +1,38 @@
+version: '3.8'
+
+services:
+  postgres:
+    image: repo-sample.ir:8088/postgres
+    container_name: postgres
+    environment:
+      POSTGRES_USER: grafana
+      POSTGRES_PASSWORD: grafana-pass
+      POSTGRES_DB: grafana
+    network_mode: grafana
+    volumes:
+      - postgres_data:/var/lib/postgresql/data
+
+  grafana:
+    image: grafana:latest
+    container_name: grafana
+    depends_on:
+      - postgres
+    ports:
+      - "10.10.10.10:3000:3000"
+    environment:
+      GF_DATABASE_TYPE: postgres
+      GF_DATABASE_HOST: postgres:5432
+      GF_DATABASE_NAME: grafana
+      GF_DATABASE_USER: grafana
+      GF_DATABASE_PASSWORD: grafana-pass
+      GF_SERVER_DOMAIN: 10.10.10.10
+      GF_SERVER_ROOT_URL: http://10.10.10.10:3000
+    network_mode: grafana
+    volumes:
+      - grafana_data:/var/lib/grafana
+      - /data/grafana/plugins:/var/lib/grafana/plugins
+
+volumes:
+  postgres_data:
+  grafana_data:
+
