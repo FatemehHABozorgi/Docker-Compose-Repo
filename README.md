@@ -13,7 +13,7 @@ Welcome to the Docker Compose Files Repository. This repository contains a colle
 - [Compose Files](#compose-files)
   - [Example Compose Files](#example-compose-files)
 - [Contributing](#contributing)
-- [License](#license)
+- [Author](#author)
 
 ## Overview
 
